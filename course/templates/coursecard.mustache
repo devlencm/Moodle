@@ -78,4 +78,19 @@
         {{$progress}}{{/progress}}
         {{$menu}}{{/menu}}
     </div>
+    {{#red}}
+        <div class="progress">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: {{progress}}%;" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    {{/red}}
+    {{#yellow}}
+        <div class="progress">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{progress}}%;" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    {{/yellow}}
+    {{#green}}
+        <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: {{progress}}%;" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    {{/green}}
 </div>

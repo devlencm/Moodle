@@ -61,8 +61,18 @@ class course_summary_exporter extends \core\external\exporter {
         }
         $progress = self::get_course_progress($this->data);
         $hasprogress = false;
+        $red = false;
+        $yellow = false;
+        $green = false;
         if ($progress === 0 || $progress > 0) {
             $hasprogress = true;
+        }
+        if ($hasprogress && $progress < 33){
+            $red = true;
+        }elseif($hasprogress && $progress < 66){
+            $yellow = true;
+        }elseif ($hasprogress && $progress >= 66){
+            $green = true;
         }
         $progress = floor($progress);
         $coursecategory = \core_course_category::get($this->data->category, MUST_EXIST, true);
@@ -72,6 +82,9 @@ class course_summary_exporter extends \core\external\exporter {
             'courseimage' => $courseimage,
             'progress' => $progress,
             'hasprogress' => $hasprogress,
+            'red' => $red,
+            'yellow' => $yellow,
+            'green' => $green,
             'isfavourite' => $this->related['isfavourite'],
             'hidden' => boolval(get_user_preferences('block_myoverview_hidden_course_' . $this->data->id, 0)),
             'showshortname' => $CFG->courselistshortnames ? true : false,
@@ -148,6 +161,15 @@ class course_summary_exporter extends \core\external\exporter {
                 'optional' => true
             ),
             'hasprogress' => array(
+                'type' => PARAM_BOOL
+            ),
+            'red' => array(
+                'type' => PARAM_BOOL
+            ),
+            'yellow' => array(
+                'type' => PARAM_BOOL
+            ),
+            'green' => array(
                 'type' => PARAM_BOOL
             ),
             'isfavourite' => array(
