@@ -74,6 +74,7 @@ class course_summary_exporter extends \core\external\exporter {
         }elseif ($hasprogress && $progress >= 66){
             $green = true;
         }
+
         $progress = floor($progress);
         $coursecategory = \core_course_category::get($this->data->category, MUST_EXIST, true);
         return array(
