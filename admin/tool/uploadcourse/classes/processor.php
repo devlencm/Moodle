@@ -37,6 +37,8 @@ class tool_uploadcourse_processor {
     /**
      * Create courses that do not exist yet.
      */
+    const ID_NUMBER = 1;
+    const ID = 2;
     const MODE_CREATE_NEW = 1;
 
     /**
