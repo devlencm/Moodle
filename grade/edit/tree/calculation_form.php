@@ -57,6 +57,13 @@ class edit_calculation_form extends moodleform {
 /// visible elements
         $mform->addElement('header', 'general', get_string('gradeitem', 'grades'));
         $mform->addElement('static', 'itemname', get_string('itemname', 'grades'));
+
+//        $mform->addElement('select', 'functions', 'Choose Grading Formula', array('Choose Grading Formula', 'Sum', 'Sum (Weighted)', 'Average', 'Average (Weighted)'));
+        $options = array('Choose Grading Formula', 'Sum', 'Sum (Weighted)', 'Average', 'Average (Weighted)');
+        $mform->addElement('select', 'functions', get_string('functions', 'grades'), $options);
+        $mform->addHelpButton('functions', 'functions', 'grades');
+//        $mform->setDefault('functions', 'test');
+
         $mform->addElement('textarea', 'calculation', get_string('calculation', 'grades'), 'cols="60" rows="5"');
         $mform->addHelpButton('calculation', 'calculation', 'grades');
         $mform->setForceLtr('calculation');

@@ -248,6 +248,10 @@ $string['forelementtypes'] = 'for the selected {$a}';
 $string['forstudents'] = 'For students';
 $string['full'] = 'Full';
 $string['fullmode'] = 'Change to full view';
+
+$string['functions'] = 'Choose Grading Formula';
+$string['functions_help'] = 'Choose a method of calculating the final grade';
+
 $string['generalsettings'] = 'General settings';
 $string['grade'] = 'Grade';
 $string['grade_help'] = 'The grade to award the student for their work.';
