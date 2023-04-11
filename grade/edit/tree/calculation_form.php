@@ -54,13 +54,35 @@ class edit_calculation_form extends moodleform {
             }
         }
 
+        $sum = "=SUM(";
+        $sum_weight = "=SUM(";
+        $average = "AVERAGE(";
+        $average_weight = "AVERAGE(";
+        foreach($this->available as $key => $element){
+            if($key != array_key_last($this->available)){
+                $sum.= "[[$element->idnumber]], ";
+                $average.= "[[$element->idnumber]], ";
+                $sum_weight.= "([[$element->idnumber]] * 1),";
+                $average_weight.= "([[$element->idnumber]] * 1),";
+            }
+            else{
+                $sum.= "[[$element->idnumber]])";
+                $sum_weight.= "([[$element->idnumber]] * 1))";
+                $average.= "[[$element->idnumber]])";
+                $average_weight.= "([[$element->idnumber]] * 1))";
+            }
+        }
+
 /// visible elements
         $mform->addElement('header', 'general', get_string('gradeitem', 'grades'));
         $mform->addElement('static', 'itemname', get_string('itemname', 'grades'));
 
 //        $mform->addElement('select', 'functions', 'Choose Grading Formula', array('Choose Grading Formula', 'Sum', 'Sum (Weighted)', 'Average', 'Average (Weighted)'));
-        $options = array('Choose Grading Formula', 'Sum', 'Sum (Weighted)', 'Average', 'Average (Weighted)');
-        $mform->addElement('select', 'functions', get_string('functions', 'grades'), $options);
+        $jscode = "document.getElementById(\"id_calculation\").value=this.value";
+//        $jscode = "console.log(this.value)";
+
+        $options = array('' => 'Choose Grading Formula', $sum => 'Sum', "$sum_weight" => 'Sum (Weighted)', $average => 'Average', $average_weight => 'Average (Weighted)');
+        $mform->addElement('select', 'functions', get_string('functions', 'grades'), $options, "onchange=$jscode");
         $mform->addHelpButton('functions', 'functions', 'grades');
 //        $mform->setDefault('functions', 'test');
 
