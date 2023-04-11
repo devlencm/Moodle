@@ -56,8 +56,8 @@ class edit_calculation_form extends moodleform {
 
         $sum = "=SUM(";
         $sum_weight = "=SUM(";
-        $average = "AVERAGE(";
-        $average_weight = "AVERAGE(";
+        $average = "=AVERAGE(";
+        $average_weight = "=AVERAGE(";
         foreach($this->available as $key => $element){
             if($key != array_key_last($this->available)){
                 $sum.= "[[$element->idnumber]], ";
