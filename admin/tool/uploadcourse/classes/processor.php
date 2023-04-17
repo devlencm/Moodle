@@ -39,6 +39,8 @@ class tool_uploadcourse_processor {
      */
     const ID_NUMBER = 1;
     const ID = 2;
+
+
     const MODE_CREATE_NEW = 1;
 
     /**
@@ -166,11 +168,21 @@ class tool_uploadcourse_processor {
             $this->shortnametemplate = $options['shortnametemplate'];
         }
 
+
+
         $this->cir = $cir;
         $this->columns = $cir->get_columns();
+        if (isset($options['category'])) {
+            if ($options['category'] == self::ID_NUMBER) {
+                //rename the column category to category_idnumber
+                $key = array_search('category', $this->columns);
+                $this->columns[$key] = "category_idnumber";
+            }
+        }
         $this->defaults = $defaults;
         $this->validate();
         $this->reset();
+
     }
 
     /**

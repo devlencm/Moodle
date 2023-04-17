@@ -52,7 +52,7 @@ class tool_uploadcourse_tracker {
     /**
      * @var array columns to display.
      */
-    protected $columns = array('line', 'result', 'id', 'shortname', 'fullname', 'idnumber', 'status');
+    protected $columns = array('line', 'result', 'id', 'shortname', 'fullname', 'idnumber', 'category', 'status');
 
     /**
      * @var int row number.
@@ -154,7 +154,8 @@ class tool_uploadcourse_tracker {
                 isset($data['id']) ? $data['id'] : '',
                 isset($data['shortname']) ? $data['shortname'] : '',
                 isset($data['fullname']) ? $data['fullname'] : '',
-                isset($data['idnumber']) ? $data['idnumber'] : ''
+                isset($data['idnumber']) ? $data['idnumber'] : '',
+                isset($data['category']) ? $data['category'] : ''
             );
             $this->buffer->output(implode("\t", $message));
             if (!empty($status)) {
@@ -173,6 +174,13 @@ class tool_uploadcourse_tracker {
             } else {
                 $outcome = $OUTPUT->pix_icon('i/invalid', '');
             }
+
+            global $DB;
+            $category = $DB->get_record('course_categories', array("idnumber" => $data['category_idnumber']));
+            $category2 = $DB->get_record('course_categories', array("id" => $data['category_id']));
+            $cat = $category->name;
+            $cat2 = $category2->name;
+
             echo html_writer::start_tag('tr', array('class' => 'r' . $this->rownb % 2));
             echo html_writer::tag('td', $line, array('class' => 'c' . $ci++));
             echo html_writer::tag('td', $outcome, array('class' => 'c' . $ci++));
@@ -180,6 +188,12 @@ class tool_uploadcourse_tracker {
             echo html_writer::tag('td', isset($data['shortname']) ? $data['shortname'] : '', array('class' => 'c' . $ci++));
             echo html_writer::tag('td', isset($data['fullname']) ? $data['fullname'] : '', array('class' => 'c' . $ci++));
             echo html_writer::tag('td', isset($data['idnumber']) ? $data['idnumber'] : '', array('class' => 'c' . $ci++));
+            if (empty($data['category'])) {
+                echo html_writer::tag('td', isset($data['category_idnumber']) ? $cat : '', array('class' => 'c' . $ci++));
+            }
+            else {
+                echo html_writer::tag('td', isset($data['category']) ? $cat2 : '', array('class' => 'c' . $ci++));
+            }
             echo html_writer::tag('td', $status, array('class' => 'c' . $ci++));
             echo html_writer::end_tag('tr');
         }
@@ -212,6 +226,7 @@ class tool_uploadcourse_tracker {
             echo html_writer::tag('th', get_string('shortname'), array('class' => 'c' . $ci++, 'scope' => 'col'));
             echo html_writer::tag('th', get_string('fullname'), array('class' => 'c' . $ci++, 'scope' => 'col'));
             echo html_writer::tag('th', get_string('idnumber'), array('class' => 'c' . $ci++, 'scope' => 'col'));
+            echo html_writer::tag('th', get_string('category'), array('class' => 'c' . $ci++, 'scope' => 'col')); //added this
             echo html_writer::tag('th', get_string('status'), array('class' => 'c' . $ci++, 'scope' => 'col'));
             echo html_writer::end_tag('tr');
         }
