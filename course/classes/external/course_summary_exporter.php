@@ -61,17 +61,18 @@ class course_summary_exporter extends \core\external\exporter {
         }
         $progress = self::get_course_progress($this->data);
         $hasprogress = false;
+        // Initialize boolean variables for red, yellow, and green to show the proper color on course card
         $red = false;
         $yellow = false;
         $green = false;
         if ($progress === 0 || $progress > 0) {
             $hasprogress = true;
         }
-        if ($hasprogress && $progress < 33){
+        if ($hasprogress && $progress < 33){ // Progress = [0, 33)
             $red = true;
-        }elseif($hasprogress && $progress < 66){
+        }elseif($hasprogress && $progress < 66){ // Progress = [33, 66)
             $yellow = true;
-        }elseif ($hasprogress && $progress >= 66){
+        }elseif ($hasprogress && $progress >= 66){ // Progress = [66, 100]
             $green = true;
         }
 
@@ -83,6 +84,7 @@ class course_summary_exporter extends \core\external\exporter {
             'courseimage' => $courseimage,
             'progress' => $progress,
             'hasprogress' => $hasprogress,
+            // Add newly created variables to the return array for get_other_values()
             'red' => $red,
             'yellow' => $yellow,
             'green' => $green,
@@ -164,6 +166,7 @@ class course_summary_exporter extends \core\external\exporter {
             'hasprogress' => array(
                 'type' => PARAM_BOOL
             ),
+            // Add red, yellow, and green to return array of define_other_properties()
             'red' => array(
                 'type' => PARAM_BOOL
             ),
