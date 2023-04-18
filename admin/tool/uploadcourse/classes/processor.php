@@ -173,7 +173,7 @@ class tool_uploadcourse_processor {
         $this->cir = $cir;
         $this->columns = $cir->get_columns();
         if (isset($options['category'])) {
-            if ($options['category'] == self::ID_NUMBER) {
+            if ($options['category'] == self::ID_NUMBER) { //check to see if category id number
                 //rename the column category to category_idnumber
                 $key = array_search('category', $this->columns);
                 $this->columns[$key] = "category_idnumber";

@@ -175,11 +175,11 @@ class tool_uploadcourse_tracker {
                 $outcome = $OUTPUT->pix_icon('i/invalid', '');
             }
 
-            global $DB;
-            $category = $DB->get_record('course_categories', array("idnumber" => $data['category_idnumber']));
-            $category2 = $DB->get_record('course_categories', array("id" => $data['category_id']));
-            $cat = $category->name;
-            $cat2 = $category2->name;
+            global $DB;         //declares variable to access database
+            $category = $DB->get_record('course_categories', array("idnumber" => $data['category_idnumber']));  //get the category resolved by category id number
+            $category2 = $DB->get_record('course_categories', array("id" => $data['category']));    //gets category resolved by id
+            $cat = $category->name;  //get name of category if id number
+            $cat2 = $category2->name;  //get name of category if id
 
             echo html_writer::start_tag('tr', array('class' => 'r' . $this->rownb % 2));
             echo html_writer::tag('td', $line, array('class' => 'c' . $ci++));
@@ -188,11 +188,23 @@ class tool_uploadcourse_tracker {
             echo html_writer::tag('td', isset($data['shortname']) ? $data['shortname'] : '', array('class' => 'c' . $ci++));
             echo html_writer::tag('td', isset($data['fullname']) ? $data['fullname'] : '', array('class' => 'c' . $ci++));
             echo html_writer::tag('td', isset($data['idnumber']) ? $data['idnumber'] : '', array('class' => 'c' . $ci++));
-            if (empty($data['category'])) {
-                echo html_writer::tag('td', isset($data['category_idnumber']) ? $cat : '', array('class' => 'c' . $ci++));
+            if (empty($data['category'])) {                             //checks if drop down selection is ID number
+                if($status== "Could not resolve category by ID number"){                    //checks to see if the category was resolved by id_number
+                    echo html_writer::tag('td', isset($data['category_idnumber']) ? $data['category_idnumber']: '', array('class' => 'c' . $ci++));
+                }
+                else{                                                   //if category is resolved show category name
+                    echo html_writer::tag('td', isset($data['category_idnumber']) ? $cat : '', array('class' => 'c' . $ci++));
+                }
+
             }
-            else {
-                echo html_writer::tag('td', isset($data['category']) ? $cat2 : '', array('class' => 'c' . $ci++));
+            else {                                              //if dropdown is ID
+                if($status== "Could not resolve category by ID"){            //checks to see if the category was resolved by id_number
+                    echo html_writer::tag('td', isset($data['category']) ? $data['category']: '', array('class' => 'c' . $ci++));
+                }
+                else {                                      //if category is resolved show category name
+                    echo html_writer::tag('td', isset($data['category']) ? $cat2: '', array('class' => 'c' . $ci++));
+                }
+
             }
             echo html_writer::tag('td', $status, array('class' => 'c' . $ci++));
             echo html_writer::end_tag('tr');
@@ -226,7 +238,7 @@ class tool_uploadcourse_tracker {
             echo html_writer::tag('th', get_string('shortname'), array('class' => 'c' . $ci++, 'scope' => 'col'));
             echo html_writer::tag('th', get_string('fullname'), array('class' => 'c' . $ci++, 'scope' => 'col'));
             echo html_writer::tag('th', get_string('idnumber'), array('class' => 'c' . $ci++, 'scope' => 'col'));
-            echo html_writer::tag('th', get_string('category'), array('class' => 'c' . $ci++, 'scope' => 'col')); //added this
+            echo html_writer::tag('th', get_string('category'), array('class' => 'c' . $ci++, 'scope' => 'col')); //adds category column
             echo html_writer::tag('th', get_string('status'), array('class' => 'c' . $ci++, 'scope' => 'col'));
             echo html_writer::end_tag('tr');
         }
