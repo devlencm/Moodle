@@ -54,18 +54,19 @@ class edit_calculation_form extends moodleform {
             }
         }
 
+        // Generate the forumulas to use in the calculation textbox when the User selects it
         $sum = "=SUM(";
         $sum_weight = "=SUM(";
         $average = "=AVERAGE(";
         $average_weight = "=AVERAGE(";
-        foreach($this->available as $key => $element){
+        foreach($this->available as $key => $element){      //Loop through each available grade item
             if($key != array_key_last($this->available)){
                 $sum.= "[[$element->idnumber]], ";
                 $average.= "[[$element->idnumber]], ";
                 $sum_weight.= "([[$element->idnumber]] * 1),";
                 $average_weight.= "([[$element->idnumber]] * 1),";
             }
-            else{
+            else{                                           // Last item in array just close the formula correctly
                 $sum.= "[[$element->idnumber]])";
                 $sum_weight.= "([[$element->idnumber]] * 1))";
                 $average.= "[[$element->idnumber]])";
@@ -77,14 +78,11 @@ class edit_calculation_form extends moodleform {
         $mform->addElement('header', 'general', get_string('gradeitem', 'grades'));
         $mform->addElement('static', 'itemname', get_string('itemname', 'grades'));
 
-//        $mform->addElement('select', 'functions', 'Choose Grading Formula', array('Choose Grading Formula', 'Sum', 'Sum (Weighted)', 'Average', 'Average (Weighted)'));
-        $jscode = "document.getElementById(\"id_calculation\").value=this.value";
-//        $jscode = "console.log(this.value)";
-
+        $jscode = "document.getElementById(\"id_calculation\").value=this.value";       // JS code to put correct formula string into calculation textbox
+//  Create dropdown menu and help button
         $options = array('' => 'Choose Grading Formula', $sum => 'Sum', "$sum_weight" => 'Sum (Weighted)', $average => 'Average', $average_weight => 'Average (Weighted)');
         $mform->addElement('select', 'functions', get_string('functions', 'grades'), $options, "onchange=$jscode");
         $mform->addHelpButton('functions', 'functions', 'grades');
-//        $mform->setDefault('functions', 'test');
 
         $mform->addElement('textarea', 'calculation', get_string('calculation', 'grades'), 'cols="60" rows="5"');
         $mform->addHelpButton('calculation', 'calculation', 'grades');

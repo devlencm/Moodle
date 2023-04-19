@@ -171,7 +171,7 @@ function add_moduleinfo($moduleinfo, $course, $mform = null) {
     // So we have to update one of them twice.
     $sectionid = course_add_cm_to_section($course, $moduleinfo->coursemodule, $moduleinfo->section);
 
-//   This is pretty close. Number does not reset with creation of a new course
+    // Generate a unique ID using the name of the Item and its instance number (Does not reset on course creation)
     $autoid = "{$moduleinfo->modulename}{$moduleinfo->instance}";
     $moduleinfo->cmidnumber = $autoid;
 
