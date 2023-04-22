@@ -35,7 +35,6 @@ require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_uploadcourse_helper {
-
     /**
      * Generate a shortname based on a template.
      *
@@ -44,6 +43,7 @@ class tool_uploadcourse_helper {
      * @return null|string shortname based on the template, or null when an error occured.
      */
     public static function generate_shortname($data, $templateshortname) {
+
         if (empty($templateshortname) && !is_numeric($templateshortname)) {
             return null;
         }
@@ -469,20 +469,20 @@ class tool_uploadcourse_helper {
      * @param string $shortname shortname to increment.
      * @return string new shortname.
      */
-    public static function increment_shortname($shortname) {
+    public static function increment_shortname($shortname)
+    {
         global $DB;
         do {
             $matches = array();
             if (!preg_match('/(.*?)([0-9]+)$/', $shortname, $matches)) {
                 $newshortname = $shortname . '_2';
             } else {
-                $newshortname = $matches[1] . ($matches[2]+1);
+                $newshortname = $matches[1] . ($matches[2] + 1);
             }
             $shortname = $newshortname;
         } while ($DB->record_exists('course', array('shortname' => $shortname)));
         return $shortname;
     }
-
     /**
      * Resolve a category based on the data passed.
      *
@@ -495,6 +495,9 @@ class tool_uploadcourse_helper {
      * @param array $errors will be populated with errors found.
      * @return int category ID.
      */
+
+
+
     public static function resolve_category($data, &$errors = array()) {
         $catid = null;
 

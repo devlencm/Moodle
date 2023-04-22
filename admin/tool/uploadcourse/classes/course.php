@@ -494,6 +494,8 @@ class tool_uploadcourse_course {
         $catid = tool_uploadcourse_helper::resolve_category($this->rawdata, $errors);
         if (empty($errors)) {
             $coursedata['category'] = $catid;
+            $category = $DB->get_record('course_categories', array("id" => $catid));  //get the category resolved by category id number
+            $coursedata['category_name'] = $category->name;
         } else {
             foreach ($errors as $key => $message) {
                 $this->error($key, $message);
