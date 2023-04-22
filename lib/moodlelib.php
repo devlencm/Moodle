@@ -4983,6 +4983,18 @@ function check_password_policy($password, &$errmsg, $user = null) {
             $errmsg .= '<div>'. get_string('errormaxconsecutiveidentchars', 'auth', $CFG->maxconsecutiveidentchars) .'</div>';
         }
 
+        if($user){
+            if (stripos($password, $user->username) !== FALSE){
+                $errmsg .= '<div>User name cannot be used in password</div>';
+            }
+            if (stripos($password, $user->firstname) !== FALSE){
+                $errmsg .= '<div>First name cannot be used in password</div>';
+            }
+            if (stripos($password, $user->lastname) !== FALSE) {
+                $errmsg .= '<div>Last name cannot be used in password</div>';
+            }
+        }
+
         // Fire any additional password policy functions from plugins.
         // Plugin functions should output an error message string or empty string for success.
         $pluginsfunction = get_plugins_with_function('check_password_policy');

@@ -3661,6 +3661,7 @@ function print_password_policy() {
         if (!empty($CFG->minpasswordnonalphanum)) {
             $messages[] = get_string('informminpasswordnonalphanum', 'auth', $CFG->minpasswordnonalphanum);
         }
+        $messages[] = "The password should also not include your username, first name, or last name";
 
         // Fire any additional password policy functions from plugins.
         // Callbacks must return an array of message strings.
