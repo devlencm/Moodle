@@ -35,8 +35,8 @@
     }
 }}
 <div class="card dashboard-card" role="listitem"
-     data-region="course-content"
-     data-course-id="{{{id}}}">
+    data-region="course-content"
+    data-course-id="{{{id}}}">
     <a href="{{viewurl}}" tabindex="-1">
         <div class="card-img dashboard-card-img" style='background-image: url("{{{courseimage}}}");'>
             <span class="sr-only">{{#str}}aria:courseimage, core_course{{/str}}</span>
@@ -59,8 +59,8 @@
                 <a href="{{viewurl}}" class="aalink coursename mr-2 mb-1">
                     {{> core_course/favouriteicon }}
                     <span class="sr-only">
-                        {{#str}}aria:coursename, core_course{{/str}}
-                    </span>
+                            {{#str}}aria:coursename, core_course{{/str}}
+                        </span>
                     {{$coursename}}{{/coursename}}
                 </a>
                 <div class="text-muted muted d-flex flex-wrap">
@@ -78,6 +78,10 @@
         {{$progress}}{{/progress}}
         {{$menu}}{{/menu}}
     </div>
+    {{!
+    Using inverted selections along with different background colors, create progress bars to display
+    at the bottom of each course card
+    }}
     {{#red}}
         <div class="progress">
             <div class="progress-bar bg-danger" role="progressbar" style="width: {{progress}}%;" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"></div>
