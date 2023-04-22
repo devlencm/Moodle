@@ -190,7 +190,7 @@ if ($hassiteconfig
         $temp->add(new admin_setting_configcheckbox('enroladminnewcourse', new lang_string('enroladminnewcourse', 'admin'),
             new lang_string('enroladminnewcourse_help', 'admin'), 1));
 
-        $temp->add(new admin_setting_configcheckbox('autologinguests', new lang_string('autologinguests', 'admin'), new lang_string('configautologinguests', 'admin'), 0));
+        $temp->add(new admin_setting_configcheckbox('autologinguests', new lang_string('autologinguests', 'admin'), new lang_string('configautologinguests', 'admin'), 1));
 
         $temp->add(new admin_setting_configmultiselect('hiddenuserfields', new lang_string('hiddenuserfields', 'admin'),
                    new lang_string('confighiddenuserfields', 'admin'), array(),
