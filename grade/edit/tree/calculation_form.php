@@ -54,9 +54,36 @@ class edit_calculation_form extends moodleform {
             }
         }
 
+        // Generate the forumulas to use in the calculation textbox when the User selects it
+        $sum = "=SUM(";
+        $sum_weight = "=SUM(";
+        $average = "=AVERAGE(";
+        $average_weight = "=AVERAGE(";
+        foreach($this->available as $key => $element){      //Loop through each available grade item
+            if($key != array_key_last($this->available)){
+                $sum.= "[[$element->idnumber]], ";
+                $average.= "[[$element->idnumber]], ";
+                $sum_weight.= "([[$element->idnumber]] * 1),";
+                $average_weight.= "([[$element->idnumber]] * 1),";
+            }
+            else{                                           // Last item in array just close the formula correctly
+                $sum.= "[[$element->idnumber]])";
+                $sum_weight.= "([[$element->idnumber]] * 1))";
+                $average.= "[[$element->idnumber]])";
+                $average_weight.= "([[$element->idnumber]] * 1))";
+            }
+        }
+
 /// visible elements
         $mform->addElement('header', 'general', get_string('gradeitem', 'grades'));
         $mform->addElement('static', 'itemname', get_string('itemname', 'grades'));
+
+        $jscode = "document.getElementById(\"id_calculation\").value=this.value";       // JS code to put correct formula string into calculation textbox
+//  Create dropdown menu and help button
+        $options = array('' => 'Choose Grading Formula', $sum => 'Sum', "$sum_weight" => 'Sum (Weighted)', $average => 'Average', $average_weight => 'Average (Weighted)');
+        $mform->addElement('select', 'functions', get_string('functions', 'grades'), $options, "onchange=$jscode");
+        $mform->addHelpButton('functions', 'functions', 'grades');
+
         $mform->addElement('textarea', 'calculation', get_string('calculation', 'grades'), 'cols="60" rows="5"');
         $mform->addHelpButton('calculation', 'calculation', 'grades');
         $mform->setForceLtr('calculation');

@@ -64,9 +64,7 @@ function add_moduleinfo($moduleinfo, $course, $mform = null) {
     $newcm->visible          = $moduleinfo->visible;
     $newcm->visibleold       = $moduleinfo->visible;
     $newcm->visibleoncoursepage = $moduleinfo->visibleoncoursepage;
-    if (isset($moduleinfo->cmidnumber)) {
-        $newcm->idnumber         = $moduleinfo->cmidnumber;
-    }
+
     if (isset($moduleinfo->downloadcontent)) {
         $newcm->downloadcontent = $moduleinfo->downloadcontent;
     }
@@ -172,6 +170,10 @@ function add_moduleinfo($moduleinfo, $course, $mform = null) {
     // Course_modules and course_sections each contain a reference to each other.
     // So we have to update one of them twice.
     $sectionid = course_add_cm_to_section($course, $moduleinfo->coursemodule, $moduleinfo->section);
+
+    // Generate a unique ID using the name of the Item and its instance number (Does not reset on course creation)
+    $autoid = "{$moduleinfo->modulename}{$moduleinfo->instance}";
+    $moduleinfo->cmidnumber = $autoid;
 
     // Trigger event based on the action we did.
     // Api create_from_cm expects modname and id property, and we don't want to modify $moduleinfo since we are returning it.
