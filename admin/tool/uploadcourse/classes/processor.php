@@ -173,7 +173,7 @@ class tool_uploadcourse_processor {
         $this->cir = $cir;
         $this->columns = $cir->get_columns();
         if (isset($options['category'])) {
-            if ($options['category'] == self::ID_NUMBER) { //check to see if category id number
+            if ($options['category'] == self::ID_NUMBER) {
                 //rename the column category to category_idnumber
                 $key = array_search('category', $this->columns);
                 $this->columns[$key] = "category_idnumber";
@@ -363,6 +363,8 @@ class tool_uploadcourse_processor {
             $data = $this->parse_line($line);
             $course = $this->get_course($data);
             $result = $course->prepare();
+
+            $data = array_merge($data, $course->get_data());
             if (!$result) {
                 $tracker->output($this->linenb, $result, $course->get_errors(), $data);
             } else {

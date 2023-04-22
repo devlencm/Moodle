@@ -60,7 +60,7 @@ class tool_uploadcourse_base_form extends moodleform {
             tool_uploadcourse_processor::MODE_CREATE_OR_UPDATE => get_string('createorupdate', 'tool_uploadcourse'),
             tool_uploadcourse_processor::MODE_UPDATE_ONLY => get_string('updateonly', 'tool_uploadcourse')
         );
-        $choices2 = array(   //drop down menu for id and id number
+        $choices2 = array(  //drop down menu for id and id number
             tool_uploadcourse_processor::ID_NUMBER => get_string('idnumber', 'tool_uploadcourse'),
             tool_uploadcourse_processor::ID => get_string('id', 'tool_uploadcourse')
         );

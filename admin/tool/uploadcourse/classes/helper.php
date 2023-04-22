@@ -511,7 +511,7 @@ class tool_uploadcourse_helper {
             }
         }
 
-        else if(empty($catid) && !empty($data['category_idnumber'])) {   // ensures that category reloution is not resolved by both id and id number
+        if (empty($catid) && !empty($data['category_idnumber'])) {
             $catid = self::resolve_category_by_idnumber($data['category_idnumber']);
             if (empty($catid)) {
                 $errors['couldnotresolvecatgorybyidnumber'] =
