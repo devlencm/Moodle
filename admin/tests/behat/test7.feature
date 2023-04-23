@@ -62,4 +62,3 @@
 
 
 
-#    Scenario: Make sure formula will throw an error if something is not typed right
