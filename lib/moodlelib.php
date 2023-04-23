@@ -4983,6 +4983,8 @@ function check_password_policy($password, &$errmsg, $user = null) {
             $errmsg .= '<div>'. get_string('errormaxconsecutiveidentchars', 'auth', $CFG->maxconsecutiveidentchars) .'</div>';
         }
 
+        // added the following parameters to check for strings of text within the password
+        // the following 3 parameters check for username, first name, and last name within a password
         if($user){
             if (stripos($password, $user->username) !== FALSE){
                 $errmsg .= '<div>User name cannot be used in password</div>';
