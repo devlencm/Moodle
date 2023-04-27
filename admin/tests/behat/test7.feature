@@ -60,5 +60,11 @@
       And I follow "Grades" in the user menu
       And I should see "50.00" in the "overview-grade" "table"
 
+    Scenario: Check to make sure function does not work if there is an error
+      Then I select "Sum" from the "functions" singleselect
+      And I set the field "calculation" to "=SUM(blah blah"
+      And I click on "Save changes" "button"
+      Then I should see "Invalid formula"
+
 
 
